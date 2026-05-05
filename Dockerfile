@@ -11,9 +11,8 @@ ARG UV_COMPILE_BYTECODE=1
 ARG UV_LINK_MODE=copy
 
 # Install the project's dependencies using the lockfile and settings
+COPY uv.lock pyproject.toml /app/
 RUN --mount=type=cache,id=s/164538f8-e1be-4336-a61c-45238d62d800-/root/.cache/uv,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-project --no-dev --no-editable
 
 # Then, add the rest of the project source code and install it
